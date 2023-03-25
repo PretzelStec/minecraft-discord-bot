@@ -12,7 +12,7 @@ class SES:
 
     def sendSimpleEmail(self, recipient, message):
         self.client.send_email(
-            Source='jstec@jacobstec.dev',
+            Source=appConfig.ALERT_SOURCE_EMAIL,
             Destination={
                 'ToAddresses': [recipient],
             },
