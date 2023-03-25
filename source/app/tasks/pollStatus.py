@@ -1,0 +1,38 @@
+from builtins import bot
+
+from discord import Status, Game
+from discord.ext import tasks
+
+from source.app.tasks.autoShutdown import autoShutdown
+from source.domain.getServerStatus import getFormattedStatus, getServerStatus
+
+
+@tasks.loop(seconds=20)
+async def pollStatus():
+    print("Polling status:")
+
+    botStatus = Status.online
+    status = await getServerStatus()
+    print(status)
+
+    if(status.get('max') == 0):
+        print('Server detected offline')
+        botStatus = Status.idle
+    if(
+        bot.autoShutdownHasStarted == False and 
+        status.get('max') != 0 and 
+        status.get('now') == 0
+    ):
+        print('Starting empty server auto shutdown countdown')
+        autoShutdown.start()
+        bot.autoShutdownHasStarted = True
+    elif(bot.autoShutdownHasStarted and status.get('now') != 0):
+        print('Cancelling server shutdown')
+        autoShutdown.cancel()
+        bot.autoShutdownHasStarted = False
+
+    await bot.change_presence(
+        status=botStatus,
+        activity= Game(getFormattedStatus(status))
+    )
+    return
