@@ -1,7 +1,11 @@
 import requests
 from mcstatus import JavaServer
+from source.config.appConfig import appConfig
 
-server = JavaServer("minecraft.jacobstec.dev", 25565)
+server = JavaServer(
+    appConfig.MINECRAFT_SERVER_URL,
+    appConfig.MINECRAFT_SERVER_PORT
+)
 
 async def getServerStatus():
     global server

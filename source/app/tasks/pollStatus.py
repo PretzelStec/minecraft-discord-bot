@@ -4,10 +4,11 @@ from discord import Status, Game
 from discord.ext import tasks
 
 from source.app.tasks.autoShutdown import autoShutdown
+from source.config.appConfig import appConfig
 from source.domain.getServerStatus import getFormattedStatus, getServerStatus
 
 
-@tasks.loop(seconds=20)
+@tasks.loop(seconds=appConfig.POLL_STATUS_TASK_RATE)
 async def pollStatus():
     print("Polling status:")
 
