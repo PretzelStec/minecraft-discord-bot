@@ -13,9 +13,8 @@ def stopMinecraftServer(commandCaller):
             return "*The Cum Zone has been put to bed...* 😴🤫"
         else:
             return "The Cum Zone is already sleeping 😴🤫"
-
-    except:
-        return "*The Cum Zone won't go to sleep* - check with Jacob"
+    except Exception as e:
+        return f'*The Cum Zone won\'t go to sleep* - check with Jacob. Error:\n`{str(e)}`'
 
 def buildServerStopAlert(subject):
     return f'{subject} has stopped the Minecraft Server'
