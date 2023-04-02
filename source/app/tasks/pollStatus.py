@@ -16,18 +16,18 @@ async def pollStatus():
     status = await getServerStatus()
     print(status)
 
-    if(status.get('max') == 0):
+    if(status.status == 0):
         print('Server detected offline')
         botStatus = Status.idle
     if(
         bot.autoShutdownHasStarted == False and 
-        status.get('max') != 0 and 
-        status.get('now') == 0
+        status.status == "Online" and
+        status.now == 0
     ):
         print('Starting empty server auto shutdown countdown')
         autoShutdown.start()
         bot.autoShutdownHasStarted = True
-    elif(bot.autoShutdownHasStarted and status.get('now') != 0):
+    elif(bot.autoShutdownHasStarted and status.now != 0):
         print('Cancelling server shutdown')
         autoShutdown.cancel()
         bot.autoShutdownHasStarted = False

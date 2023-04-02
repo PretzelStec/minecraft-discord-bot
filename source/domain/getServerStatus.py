@@ -1,29 +1,28 @@
-import requests
-from mcstatus import JavaServer
-from source.config.appConfig import appConfig
+from source.infrastructure.mcstatus.getStatus import getStatus, GetStatusOfflineResponse, GetStatusOnlineResponse
 
-server = JavaServer(
-    appConfig.MINECRAFT_SERVER_URL,
-    appConfig.MINECRAFT_SERVER_PORT
-)
+class GetServerStatusResponse:
+    status: str
+    now: int
+    max: int
 
-async def getServerStatus():
-    global server
-    
-    status = {"now": 0, "max": 0}
+    def __init__(self, status: str, now: int = 0, max: int = 0):
+        self.status = status
+        self.now = now
+        self.max = max
 
-    try:
-        pingStatus = await server.async_status()
+    def __str__(self):
+        return f'{self.status} - {self.now}/{self.max}'
 
-        status["now"] = pingStatus.players.online
-        status["max"] = pingStatus.players.max
-    except:
-        print("server offline")
+async def getServerStatus() -> GetServerStatusResponse:    
+    result = await getStatus()
 
-    return status
+    if(type(result) is GetStatusOfflineResponse):
+        return GetServerStatusResponse("Offline")
+    if(type(result) is GetStatusOnlineResponse): 
+        return GetServerStatusResponse("Online", result.now, result.max)
 
-def getFormattedStatus(status):
-    if(status.get('max') == 0):
+def getFormattedStatus(result: GetServerStatusResponse) -> str:
+    if(result.status == "Offline"):
         return 'Offline'
-    else: 
-        return f'Online { status.get("now") }/{ status.get("max") }'
+    if(result.status == "Online"): 
+        return f'Online { result.now }/{ result.max }'
