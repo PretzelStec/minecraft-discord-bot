@@ -1,5 +1,5 @@
-from ..aws.ec2 import ec2
-from ..aws.ses import ses
+from ..infrastructure.aws.ec2 import ec2
+from ..infrastructure.aws.ses import ses
 from ..config.appConfig import appConfig
 
 def startMinecraftServer(commandCaller):

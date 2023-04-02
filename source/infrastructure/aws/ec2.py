@@ -1,5 +1,5 @@
 import boto3
-from ..config.appConfig import appConfig
+from ...config.appConfig import appConfig
 
 class EC2:
     def __init__(self):

@@ -4,7 +4,7 @@ from discord.ext import commands
 from source.config.appConfig import appConfig
 
 intents = discord.Intents.default()
-intents.messages = True
+intents.message_content = True
 
 bot = commands.Bot(command_prefix="/", intents=intents)
 builtins.bot = bot
@@ -21,6 +21,7 @@ async def on_ready():
 
 import source.app.commands.startServer
 import source.app.commands.stopServer
+import source.app.commands.whosOn
 
 # -------------
 # --- TASKS ---
