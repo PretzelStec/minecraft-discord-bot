@@ -8,3 +8,6 @@ async def startServer(ctx):
     await ctx.send("📣WAKE UP CUM ZONE📣")
     statusMessage = startMinecraftServer(commandCaller)
     await ctx.send(statusMessage)
+
+def setupStartServerCommand():
+    bot.add_command(startServer)

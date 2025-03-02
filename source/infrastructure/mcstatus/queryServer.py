@@ -28,4 +28,4 @@ async def queryServer() -> QueryServerOfflineResponse | QueryServerOnlineRespons
             queryResult.players.names,
         )
     except:
-        return QueryServerOfflineResponse()
+        return QueryServerOfflineResponse

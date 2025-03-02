@@ -11,3 +11,6 @@ async def whosOn(ctx):
         string = str(result)
 
     await ctx.send(string)
+
+def setupWhosOnCommand():
+    bot.add_command(whosOn)
