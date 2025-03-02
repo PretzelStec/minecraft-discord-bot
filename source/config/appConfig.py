@@ -14,5 +14,6 @@ class AppConfig:
         self.MINECRAFT_SERVER_PORT = int(os.getenv('MINECRAFT_SERVER_PORT'))
         self.AUTO_SHUTDOWN_TASK_TIMER = int(os.getenv('AUTO_SHUTDOWN_TASK_TIMER'))
         self.POLL_STATUS_TASK_RATE = int(os.getenv('POLL_STATUS_TASK_RATE'))
+        self.GLOBAL_CHANNEL_NAME = os.getenv('GLOBAL_CHANNEL_NAME')
 
 appConfig = AppConfig()

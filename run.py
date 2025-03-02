@@ -4,12 +4,12 @@ from discord.ext import commands
 from source.config.appConfig import appConfig
 
 intents = discord.Intents.default()
-intents.messages = True
+intents.message_content = True
 
 bot = commands.Bot(command_prefix="/", intents=intents)
 builtins.bot = bot
 
-bot.autoShutdownHasStarted = False
+# bot.autoShutdownHasStarted = False
 
 @bot.event
 async def on_ready():
@@ -19,8 +19,12 @@ async def on_ready():
 # --- COMMANDS ---
 # ----------------
 
-import source.app.commands.startServer
-import source.app.commands.stopServer
+# from source.app.commands.startServer import startServer
+# from source.app.commands.stopServer import stopServer
+# from source.app.commands.whosOn import whosOn
+# setupStartServerCommand()
+# setupStopServerCommand()
+# setupWhosOnCommand()
 
 # -------------
 # --- TASKS ---
