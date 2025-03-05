@@ -13,7 +13,17 @@ builtins.bot = bot
 
 @bot.event
 async def on_ready():
-    pollStatus.start()
+    print(f'{bot.user} has connected to Discord!')
+    if appConfig.IS_POLLING_ENABLED:
+        pollStatus.start()
+    else:
+        print("Polling is disabled.")
+
+    if appConfig.IS_BACKUP_ENABLED:
+        serverBackup.start()
+    else:
+        print("Backup is disabled.")
+
 
 # ----------------
 # --- COMMANDS ---
@@ -31,5 +41,6 @@ async def on_ready():
 # -------------
 
 from source.app.tasks.pollStatus import pollStatus
+from source.app.tasks.serverBackup import serverBackup
 
 bot.run(appConfig.DISCORD_TOKEN)
